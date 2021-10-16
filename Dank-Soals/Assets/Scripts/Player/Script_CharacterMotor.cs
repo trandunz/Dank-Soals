@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Script_CharacterMotor : MonoBehaviour
 {
@@ -14,19 +12,19 @@ public class Script_CharacterMotor : MonoBehaviour
     [SerializeField] float m_SmoothTurnTime;
 
     #region Dodge
-
-    [SerializeField] float m_DodgeCooldown = 1.0f;
+    //
+    [SerializeField] protected float m_DodgeCooldown = 1.0f;
     [SerializeField] float m_DodgeLength = 3.0f;
     float m_ActCooldown;
-
+    //
     #endregion
 
     #region Private Member Variables
-
+    //
     float m_SmoothTurnVelocity;
     Vector3 m_Impact = Vector3.zero;
     float m_DistanceToGround;
-
+    //
     #endregion
 
     protected void Motor()
@@ -48,6 +46,7 @@ public class Script_CharacterMotor : MonoBehaviour
     }
 
     #region Private Functions
+    //
     void InitDistanceToGround()
     {
         m_DistanceToGround = m_CharacterController.bounds.extents.y;
@@ -150,6 +149,6 @@ public class Script_CharacterMotor : MonoBehaviour
             return false;
         }
     }
-
+    //
     #endregion
 }
