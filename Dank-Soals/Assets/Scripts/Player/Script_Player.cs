@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using Cinemachine;
 public class Script_Player : Script_CharacterMotor
 {
     #region Singleton
@@ -12,7 +12,10 @@ public class Script_Player : Script_CharacterMotor
     [SerializeField] float m_Health = 100.0f;
     [SerializeField] float m_SuccessiveDamageDelay;
 
-    [SerializeField] GameObject[] m_WeaponWheel;
+    [Header("Internal Components")]
+    [SerializeField] CinemachineVirtualCamera m_VCam;
+
+    public GameObject[] m_WeaponWheel;
 
     #region Private Member Variables
     //
@@ -31,6 +34,8 @@ public class Script_Player : Script_CharacterMotor
         Motor();
         UpdateDamageTimer();
         HotBarInput();
+        Aim();
+        Fire();
     }
 
     void LateUpdate()
@@ -122,10 +127,58 @@ public class Script_Player : Script_CharacterMotor
         }
     }
 
-    void ResetAllAnimatorBools()
+    #endregion
+
+    #region Combat
+
+    void Aim()
     {
-        m_Animator.SetBool("Pistol", false);
-        m_Animator.SetBool("BeamGun", false);
+        if (Input.GetKey(KeyCode.Mouse1))
+        {
+            m_VCam.Priority = 11;
+            if (m_Animator)
+            {
+                if (m_Animator.GetBool("Pistol") || m_Animator.GetBool("BeamGun"))
+                {
+                    if (!m_Animator.GetBool("Aiming"))
+                    {
+                        m_Animator.SetBool("Aiming", true);
+                    }
+                }
+            }
+        }
+        else
+        {
+            m_VCam.Priority = 9;
+            if (m_Animator)
+            {
+                m_Animator.SetBool("Aiming", false);
+            }
+        }
+    }
+
+    void Fire()
+    {
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            if (m_Animator)
+            {
+                if (m_Animator.GetBool("Pistol") || m_Animator.GetBool("BeamGun"))
+                {
+                    if (m_Animator.GetBool("Aiming") && !m_Animator.GetBool("Fire"))
+                    {
+                        m_Animator.SetBool("Fire", true);
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (m_Animator)
+            {
+                m_Animator.SetBool("Fire", false);
+            }
+        }
     }
 
     #endregion
