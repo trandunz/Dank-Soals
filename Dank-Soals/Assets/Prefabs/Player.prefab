@@ -237,6 +237,7 @@ MonoBehaviour:
   m_DodgeLength: 2
   m_Health: 100
   m_SuccessiveDamageDelay: 0
+  m_VCam: {fileID: 0}
   m_WeaponWheel:
   - {fileID: 3599402272779771252}
   - {fileID: 5074997581300082735}
