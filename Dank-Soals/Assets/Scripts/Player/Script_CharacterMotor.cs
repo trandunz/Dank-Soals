@@ -5,7 +5,7 @@ public class Script_CharacterMotor : MonoBehaviour
     [SerializeField] LayerMask m_GroundLayer;
     [SerializeField] CharacterController m_CharacterController;
     [SerializeField] Transform m_MainCamera;
-    [SerializeField] Animator m_Animator;
+    [SerializeField] protected Animator m_Animator;
 
     [SerializeField] float m_Mass = 60.0f;
     [SerializeField] float m_MovementSpeed = 6.0f;
@@ -33,6 +33,7 @@ public class Script_CharacterMotor : MonoBehaviour
         CursorResetCheck();
         Jump();
         HandleImpacts();
+        Gravity();
     }
 
     protected void InitMotor()
@@ -91,6 +92,11 @@ public class Script_CharacterMotor : MonoBehaviour
         }
 
         m_ActCooldown -= Time.deltaTime;
+    }
+
+    void Gravity()
+    {
+        m_CharacterController.Move(Vector3.down * 9.81f * Time.deltaTime);
     }
 
     void AddImpact(Vector3 _force, float _strenth)

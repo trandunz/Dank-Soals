@@ -12,6 +12,8 @@ public class Script_Player : Script_CharacterMotor
     [SerializeField] float m_Health = 100.0f;
     [SerializeField] float m_SuccessiveDamageDelay;
 
+    [SerializeField] GameObject[] m_WeaponWheel;
+
     #region Private Member Variables
     //
     float m_DamageTimer;
@@ -28,6 +30,7 @@ public class Script_Player : Script_CharacterMotor
     {
         Motor();
         UpdateDamageTimer();
+        HotBarInput();
     }
 
     void LateUpdate()
@@ -71,5 +74,59 @@ public class Script_Player : Script_CharacterMotor
         }
     }
     //
+    #endregion
+
+    #region Weapon Wheel
+
+    void HotBarInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            if (m_Animator)
+            {
+                if (m_Animator.GetBool("BeamGun"))
+                {
+                    m_Animator.SetBool("Pistol", false);
+                    m_Animator.SetBool("BeamGun", false);
+                    m_WeaponWheel[0].gameObject.SetActive(false);
+                    m_WeaponWheel[1].gameObject.SetActive(false);
+                }
+                else
+                {
+                    m_Animator.SetBool("Pistol", false);
+                    m_Animator.SetBool("BeamGun", true);
+                    m_WeaponWheel[1].gameObject.SetActive(false);
+                    m_WeaponWheel[0].gameObject.SetActive(true);
+                }
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if (m_Animator)
+            {
+                if (m_Animator.GetBool("Pistol"))
+                {
+                    m_Animator.SetBool("BeamGun", false);
+                    m_Animator.SetBool("Pistol", false);
+                    m_WeaponWheel[0].gameObject.SetActive(false);
+                    m_WeaponWheel[1].gameObject.SetActive(false);
+                }
+                else
+                {
+                    m_Animator.SetBool("BeamGun", false);
+                    m_Animator.SetBool("Pistol", true);
+                    m_WeaponWheel[0].gameObject.SetActive(false);
+                    m_WeaponWheel[1].gameObject.SetActive(true);
+                }
+            }
+        }
+    }
+
+    void ResetAllAnimatorBools()
+    {
+        m_Animator.SetBool("Pistol", false);
+        m_Animator.SetBool("BeamGun", false);
+    }
+
     #endregion
 }
