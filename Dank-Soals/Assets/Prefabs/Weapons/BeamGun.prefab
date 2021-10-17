@@ -192,7 +192,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_WeaponData: {fileID: 11400000, guid: cb0f86c5c237713478c487807a6304ae, type: 2}
   m_Muzzle: {fileID: 7818520082257972305}
-  m_Bullet: {fileID: 107634322895020463, guid: 272ac0b066e75284794ffb7d0b477b88, type: 3}
+  m_Bullet: {fileID: 6202855494712847262, guid: d7f5aaac19b09604aafb3ec6ae588805,
+    type: 3}
 --- !u!1 &7818520082257972305
 GameObject:
   m_ObjectHideFlags: 0

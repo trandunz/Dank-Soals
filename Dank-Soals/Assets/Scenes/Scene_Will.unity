@@ -1336,7 +1336,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 983435860}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.711, y: 1.97, z: -2.048}
+  m_LocalPosition: {x: 0.5, y: 1.8, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1905411828}
@@ -1651,7 +1651,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1173772870}
-  m_LocalRotation: {x: 0.32415882, y: -0.000000016277282, z: 0.0000000055775997, w: 0.94600266}
+  m_LocalRotation: {x: 0.32415882, y: 0.000000016277284, z: -0.000000005577601, w: 0.94600266}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1784,7 +1784,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1224938578}
-  m_LocalRotation: {x: 0.35830837, y: -0.000000016063934, z: 0.0000000061651906, w: 0.9336033}
+  m_LocalRotation: {x: 0.35830837, y: 0.000000016063934, z: -0.0000000061651906, w: 0.9336033}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2226,7 +2226,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1857053297}
-  m_LocalRotation: {x: 0.35116526, y: -0.000000016110567, z: 0.0000000060422827, w: 0.9363135}
+  m_LocalRotation: {x: 0.35116526, y: 0.0000000024707736, z: -0.0000000012528635,
+    w: 0.9363135}
   m_LocalPosition: {x: 0, y: 7.8224535, z: -7.579047}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2247,13 +2248,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ShowDebugText: 0
   m_ShowCameraFrustum: 1
-  m_IgnoreTimeScale: 0
+  m_IgnoreTimeScale: 1
   m_WorldUpOverride: {fileID: 0}
   m_UpdateMethod: 2
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 2
+    m_Time: 1
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -2377,19 +2378,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1905411827}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
+  m_Script: {fileID: 11500000, guid: bd6043bde05a7fc4cba197d06915c1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BindingMode: 1
-  m_FollowOffset: {x: 0.711, y: 0.97, z: -2.048}
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
-  m_AngularDampingMode: 0
-  m_PitchDamping: 0
-  m_YawDamping: 0
-  m_RollDamping: 0
-  m_AngularDamping: 0
+  Damping: {x: 0.1, y: 0.5, z: 0.3}
+  ShoulderOffset: {x: 0.5, y: 0.4, z: 0}
+  VerticalArmLength: 0.4
+  CameraSide: 1
+  CameraDistance: 2
+  CameraCollisionFilter:
+    serializedVersion: 2
+    m_Bits: 0
+  IgnoreTag: 
+  CameraRadius: 0.2
 --- !u!114 &1905411831
 MonoBehaviour:
   m_ObjectHideFlags: 3
