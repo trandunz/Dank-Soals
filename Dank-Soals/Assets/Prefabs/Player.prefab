@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6945984099363707544}
-  - component: {fileID: 4107761370025415015}
   - component: {fileID: 1356328225041947646}
   - component: {fileID: 1356328225041947645}
   m_Layer: 0
@@ -34,29 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4107761370025415015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1356328225041947644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7aa4e1d1c13c4e43b2880bcb08e4c5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_GroundLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  m_CharacterController: {fileID: 1356328225041947646}
-  m_MainCamera: {fileID: 0}
-  m_Animator: {fileID: 7495262545287513196}
-  m_Mass: 60
-  m_MovementSpeed: 3
-  m_SmoothTurnTime: 0
-  m_DodgeCooldown: 1
-  m_DodgeLength: 3
 --- !u!143 &1356328225041947646
 CharacterController:
   m_ObjectHideFlags: 0
@@ -98,6 +74,8 @@ MonoBehaviour:
   m_SmoothTurnTime: 0.1
   m_DodgeCooldown: 0.5
   m_DodgeLength: 2
+  m_Health: 100
+  m_SuccessiveDamageDelay: 0
 --- !u!1001 &4138262954227775997
 PrefabInstance:
   m_ObjectHideFlags: 0
