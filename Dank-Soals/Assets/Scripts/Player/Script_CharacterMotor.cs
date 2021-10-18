@@ -15,7 +15,7 @@ public class Script_CharacterMotor : MonoBehaviour
     //
     [SerializeField] protected float m_DodgeCooldown = 1.0f;
     [SerializeField] float m_DodgeLength = 3.0f;
-    float m_ActCooldown;
+    float m_ActCooldown = 1.0f;
     //
     #endregion
 
@@ -27,10 +27,16 @@ public class Script_CharacterMotor : MonoBehaviour
     //
     #endregion
 
+    public Animator GetAnimator()
+    {
+        return m_Animator;
+    }
+
     protected void Motor()
     {
         Movement();
         CursorResetCheck();
+        Roll();
         Jump();
         HandleImpacts();
         Gravity();
@@ -76,6 +82,26 @@ public class Script_CharacterMotor : MonoBehaviour
         }
     }
 
+    void Roll()
+    {
+        if (m_ActCooldown <= 0)
+        {
+            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E))
+            {
+                Debug.Log("Player Rolled!");
+                m_Animator.SetBool("Dodge", true);
+                AddImpact(transform.forward, m_DodgeLength * 50);
+
+                m_ActCooldown = m_DodgeCooldown;
+            }
+        }
+        else
+        {
+
+            m_ActCooldown -= Time.deltaTime;
+        }
+    }
+
     void Jump()
     {
         if (m_ActCooldown <= 0)
@@ -83,15 +109,14 @@ public class Script_CharacterMotor : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Debug.Log("Player Jumped!");
-                //m_Animator.SetBool("IsJumping", true);
+                m_Animator.SetBool("Jump", true);
 
+                AddImpact(transform.up, m_DodgeLength * 150);
                 AddImpact(transform.forward, m_DodgeLength * 50);
 
                 m_ActCooldown = m_DodgeCooldown;
             }
         }
-
-        m_ActCooldown -= Time.deltaTime;
     }
 
     void Gravity()

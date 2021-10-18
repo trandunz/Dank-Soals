@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Mass: 60
   m_MovementSpeed: 6
   m_SmoothTurnTime: 0.1
-  m_DodgeCooldown: 0.5
+  m_DodgeCooldown: 0.933
   m_DodgeLength: 2
   m_Health: 100
   m_SuccessiveDamageDelay: 0
@@ -1680,6 +1680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61732f34fdf22e5479727d53fa86b8a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Player: {fileID: 1356328225041947645}
 --- !u!1 &3980481036296793812
 GameObject:
   m_ObjectHideFlags: 0
