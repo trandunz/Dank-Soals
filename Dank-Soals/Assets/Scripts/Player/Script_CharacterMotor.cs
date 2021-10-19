@@ -7,9 +7,17 @@ public class Script_CharacterMotor : MonoBehaviour
     [SerializeField] Transform m_MainCamera;
     [SerializeField] protected Animator m_Animator;
 
-    [SerializeField] float m_Mass = 60.0f;
-    [SerializeField] float m_MovementSpeed = 6.0f;
+    [SerializeField] float m_Mass;
+    [SerializeField] float m_MovementSpeed;
+    [SerializeField] float m_JumpPower;
     [SerializeField] float m_SmoothTurnTime;
+    [SerializeField] float  m_ForceScale;
+
+    #region Jump
+
+    [SerializeField] float m_MaxJumpTime;
+
+    #endregion
 
     #region Dodge
     //
@@ -24,6 +32,8 @@ public class Script_CharacterMotor : MonoBehaviour
     float m_SmoothTurnVelocity;
     Vector3 m_Impact = Vector3.zero;
     float m_DistanceToGround;
+    bool m_IsJumping = false;
+    float m_JumpTime = 0;
     //
     #endregion
 
@@ -38,8 +48,8 @@ public class Script_CharacterMotor : MonoBehaviour
         CursorResetCheck();
         Roll();
         Jump();
-        HandleImpacts();
         Gravity();
+        HandleImpacts();
     }
 
     protected void InitMotor()
@@ -90,7 +100,7 @@ public class Script_CharacterMotor : MonoBehaviour
             {
                 Debug.Log("Player Rolled!");
                 m_Animator.SetBool("Dodge", true);
-                AddImpact(transform.forward, m_DodgeLength * 50);
+                AddImpact(transform.forward, m_DodgeLength);
 
                 m_ActCooldown = m_DodgeCooldown;
             }
@@ -106,40 +116,56 @@ public class Script_CharacterMotor : MonoBehaviour
     {
         if (m_ActCooldown <= 0)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log("Player Jumped!");
-                m_Animator.SetBool("Jump", true);
+                m_IsJumping = true;
+                AddImpact(Vector3.up, m_JumpPower * 1.5f);
+                AddImpact(m_Animator.gameObject.transform.forward, m_DodgeLength / 2);
+            }
 
-                AddImpact(transform.up, m_DodgeLength * 150);
-                AddImpact(transform.forward, m_DodgeLength * 50);
-
-                m_ActCooldown = m_DodgeCooldown;
+            if (Input.GetKey(KeyCode.Space) && m_IsJumping)
+            {
+                if (m_JumpTime < m_MaxJumpTime)
+                {
+                    AddImpact(Vector3.up, m_JumpPower / 6);
+                    AddImpact(m_Animator.gameObject.transform.forward, m_DodgeLength / 24);
+                    m_JumpTime += Time.deltaTime;
+                }
+                else
+                {
+                    m_JumpTime = 0;
+                    m_IsJumping = false;
+                }
+            }
+            else
+            {
+                m_IsJumping = false;
+                m_JumpTime = 0;
             }
         }
     }
 
     void Gravity()
     {
-        m_CharacterController.Move(Vector3.down * 9.81f * Time.deltaTime);
+        AddImpact(Vector3.down, - 1);
     }
 
     void AddImpact(Vector3 _force, float _strenth)
     {
         _force.Normalize();
-        if (_force.y < 0)
+        if (_force.y < -0.01f)
         {
             _force.y = -_force.y;
         }
 
-        m_Impact += _force.normalized * _strenth / m_Mass;
+        m_Impact += _force.normalized * _strenth;
     }
 
     void HandleImpacts()
     {
-        if (m_Impact.magnitude > 0.2f)
+        if (m_Impact.magnitude > 0.1f)
         {
-            m_CharacterController.Move(m_Impact * m_MovementSpeed * Time.deltaTime);
+            m_CharacterController.Move(m_Impact * m_Mass * m_ForceScale * Time.deltaTime);
         }
 
         m_Impact = Vector3.Lerp(m_Impact, Vector3.zero, 5 * Time.deltaTime);
@@ -179,6 +205,11 @@ public class Script_CharacterMotor : MonoBehaviour
         {
             return false;
         }
+    }
+
+    bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, -Vector3.up, m_DistanceToGround + 0.1f);
     }
     //
     #endregion
