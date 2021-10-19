@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Script_AnimationEvents : MonoBehaviour
 {
-    Script_Player m_Player;
+    [SerializeField] Script_Player m_Player;
 
     public void Fire(string _name)
     {
@@ -31,6 +31,30 @@ public class Script_AnimationEvents : MonoBehaviour
                 }
             default:
                 break;
+        }
+    }
+
+    public void ToggleAnimatorBool(string _param)
+    {
+        if (m_Player.GetAnimator().GetBool(_param) == true)
+        {
+            m_Player.GetAnimator().SetBool(_param, false);
+        }
+        else if (m_Player.GetAnimator().GetBool(_param) == false)
+        {
+            m_Player.GetAnimator().SetBool(_param, true);
+        }
+    }
+
+    public void ToggleJumpParam()
+    {
+        if (m_Player.GetAnimator().GetBool("Jump") == true)
+        {
+            m_Player.GetAnimator().SetBool("Jump", false);
+        }
+        else if (m_Player.GetAnimator().GetBool("Jump") == false)
+        {
+            m_Player.GetAnimator().SetBool("Jump", true);
         }
     }
 }
